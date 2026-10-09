@@ -6,6 +6,7 @@ export default {
     posts: "Posts",
     tags: "Tags",
     about: "About",
+    contact: "Contact",
     archives: "Archives",
     search: "Search",
   },
@@ -52,6 +53,9 @@ export default {
 
     searchTitle: "Search",
     searchDesc: "Search any article ...",
+
+    contactTitle: "Contact",
+    contactDesc: "Get in touch by sending me a message.",
   },
   a11y: {
     skipToContent: "Skip to content",
@@ -62,6 +66,12 @@ export default {
     noResults: "No results found",
     goToPreviousPage: "Go to previous page",
     goToNextPage: "Go to next page",
+  },
+  contact: {
+    subject: "Subject",
+    message: "Message",
+    send: "Send",
+    sent: "Your email client should open with your message.",
   },
   notFound: {
     title: "404 Not Found",

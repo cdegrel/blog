@@ -4,6 +4,7 @@ export interface UIStrings {
     posts: string;
     tags: string;
     about: string;
+    contact: string;
     archives: string;
     search: string;
   };
@@ -50,6 +51,9 @@ export interface UIStrings {
 
     searchTitle: string;
     searchDesc: string;
+
+    contactTitle: string;
+    contactDesc: string;
   };
   a11y: {
     skipToContent: string;
@@ -60,6 +64,12 @@ export interface UIStrings {
     noResults: string;
     goToPreviousPage: string;
     goToNextPage: string;
+  };
+  contact: {
+    subject: string;
+    message: string;
+    send: string;
+    sent: string;
   };
   notFound: {
     title: string;
