@@ -1,0 +1,79 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+// No backend: the form opens the visitor's mail client via the `mail` social link
+const mailUrl =
+  config.socials.find(({ name }) => name === "mail")?.url ?? "mailto:";
+const mailTo = mailUrl.split("?")[0];
+---
+
+<Layout
+  title={`${t.pages.contactTitle} | ${config.site.title}`}
+  description={t.pages.contactDesc}
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.contactTitle} pageDesc={t.pages.contactDesc}>
+    <form
+      id="contact-form"
+      class="flex max-w-xl flex-col gap-4"
+      data-mailto={mailTo}
+    >
+      <label class="flex flex-col gap-1 font-medium">
+        {t.contact.subject}
+        <input
+          type="text"
+          name="subject"
+          required
+          class="focus-outline border-border bg-background rounded border px-3 py-2 font-normal"
+        />
+      </label>
+      <label class="flex flex-col gap-1 font-medium">
+        {t.contact.message}
+        <textarea
+          name="message"
+          rows="8"
+          required
+          class="focus-outline border-border bg-background rounded border px-3 py-2 font-normal"
+        ></textarea>
+      </label>
+      <button
+        type="submit"
+        class="focus-outline bg-accent text-background self-start rounded px-4 py-2 font-medium hover:opacity-90"
+      >
+        {t.contact.send}
+      </button>
+      <p id="contact-status" class="hidden italic" role="status">
+        {t.contact.sent}
+      </p>
+    </form>
+  </Main>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const form = document.querySelector<HTMLFormElement>("#contact-form");
+    if (!form) return;
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const subject = encodeURIComponent(String(data.get("subject")));
+      const body = encodeURIComponent(String(data.get("message")));
+      window.location.href = `${form.dataset.mailto}?subject=${subject}&body=${body}`;
+      document.querySelector("#contact-status")?.classList.remove("hidden");
+    });
+  });
+</script>
